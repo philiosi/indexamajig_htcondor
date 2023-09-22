@@ -22,7 +22,7 @@ lst_dir="" # Do not assign a value.
 # Output
 # 'stream_foler' and 'log' directories are required. Please change directories what you want.
 # Default directory are 'file_stream' and 'log'
-stream_folder="file_stream"
+stream_dir="file_stream"
 log="log"
 
 # create folder for output and log
@@ -38,8 +38,8 @@ in_type=0
 # asign memory
 MEM=360
 
-if [ ! -d $stream_folder ];then
-		mkdir $stream_folder
+if [ ! -d $stream_dir ];then
+		mkdir $stream_dir
 fi
 
 if [ ! -d $log ];then
@@ -139,7 +139,7 @@ job_submit() {
 	geom=`echo $g | awk -F'.' '{print $1}'`
 	got=$(realpath -m "${PROCDIR}/${geom_dir}/${g}")
 	fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
-	oot=${PROCDIR}/${stream_folder}/${geom}_${i}_${runnum}_${o}
+	oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
 	pot=${PROCDIR}/${p}
 
 	condor_submit <<-EOF
