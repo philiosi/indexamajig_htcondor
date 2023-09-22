@@ -129,10 +129,10 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 		esac
 done
 
-if [ $DEBUG -eq 1 ]; then echo "geom_dir is $geom_dir"; fi
-if [ $DEBUG -eq 1 ]; then echo "g is $g"; fi
-if [ $DEBUG -eq 1 ]; then echo "lst_dir is $lst_dir"; fi
-if [ $DEBUG -eq 1 ]; then echo "f is $f"; fi
+if [ $DEBUG -eq 1 ]; then echo "[debug] geom_dir is $geom_dir"; fi
+if [ $DEBUG -eq 1 ]; then echo "[debug] g is $g"; fi
+if [ $DEBUG -eq 1 ]; then echo "[debug] lst_dir is $lst_dir"; fi
+if [ $DEBUG -eq 1 ]; then echo "[debug] f is $f"; fi
 
 # job submit function
 job_submit() { 
