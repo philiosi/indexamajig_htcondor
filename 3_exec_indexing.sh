@@ -24,5 +24,3 @@ source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/pal/data/staff/ue_191027_SFX/proc/cheetah/hdf5/test/lib
 
 time indexamajig -g ${1} --peaks=cxi --indexing=${2} -j ${3}  -i ${4} -o ${5} -p ${6} ${7}
-
-

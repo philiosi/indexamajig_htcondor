@@ -206,4 +206,3 @@ case $in_type in
 		job_submit
 		;;
 esac 
-

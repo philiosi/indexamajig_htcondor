@@ -47,4 +47,3 @@ p0/no_index = 0
 
 
 p0/coffset = -0.000010
-
