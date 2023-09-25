@@ -11,6 +11,8 @@
 #
 ###############################################################################
 
+# target directory
+target="file_list"
 
 usage() {
 	err_msg "Usage: $0 -d pal40 (default:pal)"
@@ -42,8 +44,8 @@ while getopts ":d:" opt; do
 	esac
 done
 
-if [ ! -d file_list ];then
-	mkdir file_list
+if [ ! -d $target ];then
+	mkdir $target
 fi
 
 #user define:pal40, default:pal
@@ -52,6 +54,6 @@ do
 	
 	name=`echo $line | awk -F'/' '{print $3}' | awk -F '.' '{print $1}'| awk -F '-' '{print $2$3}'`
 	echo $line $name
-	echo $line > ./file_list/$name.lst
+	echo $line > ./$target/$name.lst
 done
 
