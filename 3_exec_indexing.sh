@@ -15,7 +15,8 @@
 
 
 
-source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
+#source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
+source /pal/lib/setup_crystfel-0.10.1_hdf5-1.10.5.sh
 #source /pal/data/setup/setup.sh
 
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/pal/data/setup/lib:/pal/lib/pal-soft/ccp4-7.0/lib
