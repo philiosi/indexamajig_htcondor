@@ -77,7 +77,9 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				elif [ -f "$g" ]; then
 					let "in_type=($in_type|1)"
 					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is regular file : sg"; fi
-					if [[ "$g" == */* ]]; then f=$(basename "$g"); fi
+					if [[ "$g" == */* ]]
+						then g=$(basename "$g")
+					fi
 				else
 					err_msg_g
 				fi
@@ -98,7 +100,9 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				elif [ -f "$f" ]; then
 					let "in_type=($in_type|4)"
 					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is regular file : sf"; fi
-					if [[ "$f" == */* ]]; then f=$(basename "$f"); fi
+					if [[ "$f" == */* ]]
+						then f=$(basename "$f")
+					fi
 				else
 					err_msg_f
 				fi
