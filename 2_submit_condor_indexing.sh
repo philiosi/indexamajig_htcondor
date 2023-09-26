@@ -12,7 +12,7 @@
 # 2_condor_submit_indexing.sh		Last Modified Data : 2023/09/12 by Sang-Ho Na
 # 2_condor_submit_indexing_v2.sh	Last Modified Data : 2023/09/21 by Sang-Ho Na
 ##################################################################################
-DEBUG=0
+DEBUG=1
 
 # Input
 # The directory location is determined based on the input parameter.
@@ -165,6 +165,7 @@ set_output_naming() {
 
 # Analyzing all files in the specific folder.
 case $in_type in
+	# - 1010 : 10 multi lst, multi geom
 	10)	if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: multiful lst files and multiful geom files"; fi
 		
 		if [ $DEBUG -eq 1 ]; then echo "[debug] start 'while' for reading file list]"; fi 
@@ -181,6 +182,7 @@ case $in_type in
 			done
 		done
 		;;
+	# - 1001 : 9  multi lst, single geom
 	9)	if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: multiful lst files and single geom file"; fi
 		
 		ls "$f"/* | while read file_line
@@ -191,6 +193,7 @@ case $in_type in
 			job_submit
 		done
 		;;
+	# - 0110 : 6  single lst, multi geom
 	6)	if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and multiful geom files"; fi
 		ls "$geom_dir"/* | while read geom_line
 		do
@@ -200,6 +203,7 @@ case $in_type in
 			job_submit
 		done
 		;;
+	# - 0101 : 5  single lst, single geom
 	5)	if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and single geom file"; fi
 		if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
 		set_output_naming
