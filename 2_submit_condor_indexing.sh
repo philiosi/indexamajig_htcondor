@@ -12,6 +12,9 @@
 # 2_condor_submit_indexing.sh		Last Modified Data : 2023/09/12 by Sang-Ho Na
 # 2_condor_submit_indexing_v2.sh	Last Modified Data : 2023/09/21 by Sang-Ho Na
 ##################################################################################
+
+# debug print option 
+  # ex) if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is directory : mf"; fi
 DEBUG=1
 
 # Input
