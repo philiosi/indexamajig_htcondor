@@ -53,10 +53,10 @@ usage() {
 err_msg() { echo "$@" ; } >&2
 err_msg_f() { err_msg "-f option requires lst file or directory, and please check the file exist and readable";}
 err_msg_g() { err_msg "-g option requires geometry file or directory, and please check the file exist and readable";}
-err_msg_i() { err_msg "-i option requires indexing method ex)mosflm, xds. asdf, dirax, xgandalf";}
-err_msg_j() { err_msg "-j option requires number of cpu";}
-err_msg_o() { err_msg "-o option requires stream file name";}
-err_msg_p() { err_msg "-o option requires *.pdb file";}
+err_msg_i() { err_msg "-i option requires indexing method ex)mosflm, xds, asdf, dirax, xgandalf";}
+err_msg_j() { err_msg "-j option requires number of cpu(max 72cores)";}
+err_msg_o() { err_msg "-o option requires stream file";}
+err_msg_p() { err_msg "-p option requires *.pdb file";}
 err_msg_e() { err_msg "-e option another parameter such as -p, --int-radius, --threshold, --min-srn, --min-fradient ";}
 
 if [ "$#" -lt 10 ]; then
@@ -90,6 +90,9 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				;;
 			j)
 				j=$OPTARG
+				if [ "$j" -gt 72 ]; then
+					if [ $DEBUG -eq 1 ]; then echo "[debug] Number of CPU cores specified ($j) is greater than 72"; fi
+				fi
 				;;
 			f)
 				f=$OPTARG
@@ -114,9 +117,17 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				;;
 			o)
 				o=$OPTARG
+				if [ ! -f "$o" ]; then
+					if [ $DEBUG -eq 1 ]; then echo "[debug] File $o does not exist. '-o' option requires stream file name"; fi
+					 exit 1
+				fi
 				;;
 			p)
 				p=$OPTARG
+				if [ ! -f "$p" ]; then
+					if [ $DEBUG -eq 1 ]; then echo "[debug] File $p does not exist. '-p' option requires *.pdb file"; fi
+					 exit 1
+				fi
 				;;
 			:)
 				case $OPTARG in
