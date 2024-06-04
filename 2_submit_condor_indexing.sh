@@ -8,9 +8,11 @@
 # (c) 2023 Gisu Park(PAL-XFEL)			Sang-Ho Na(KISTI)
 # Contact: gspark86@postech.ac.kr		shna@kisti.re.kr
 #
-# 2_condor_indexing.sh				Last Modified Data : 2021/03/09 by Gisu Pakr
-# 2_condor_submit_indexing.sh		Last Modified Data : 2023/09/12 by Sang-Ho Na
-# 2_condor_submit_indexing_v2.sh	Last Modified Data : 2023/09/21 by Sang-Ho Na
+# File history
+# 2_condor_indexing.sh						Last Modified Data : 2021/03/09 by Gisu Pakr
+# 2_condor_submit_indexing.sh				Last Modified Data : 2023/09/12 by Sang-Ho Na
+# 2_condor_submit_indexing_v2.sh			Last Modified Data : 2023/09/21 by Sang-Ho Na
+# (current) 2_submit_condor_indexing.sh		Last Modified Data : 2024/06/4 by Sang-Ho Na
 ##################################################################################
 
 # debug print option 
