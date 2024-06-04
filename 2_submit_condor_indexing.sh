@@ -1,5 +1,5 @@
 #!/bin/bash
-#################################################################################
+#################################################################################################
 #
 # submit jobs of HTcondor for indexing - v2.0
 # This script is developed based on the "2_condor_indexing.sh".
@@ -9,11 +9,11 @@
 # Contact: gspark86@postech.ac.kr		shna@kisti.re.kr
 #
 # File history
-# 2_condor_indexing.sh						Last Modified Data : 2021/03/09 by Gisu Pakr
-# 2_condor_submit_indexing.sh				Last Modified Data : 2023/09/12 by Sang-Ho Na
-# 2_condor_submit_indexing_v2.sh			Last Modified Data : 2023/09/21 by Sang-Ho Na
+# 2_condor_indexing.sh				Last Modified Data : 2021/03/09 by Gisu Pakr
+# 2_condor_submit_indexing.sh			Last Modified Data : 2023/09/12 by Sang-Ho Na
+# 2_condor_submit_indexing_v2.sh		Last Modified Data : 2023/09/21 by Sang-Ho Na
 # (current) 2_submit_condor_indexing.sh		Last Modified Data : 2024/06/4 by Sang-Ho Na
-##################################################################################
+#################################################################################################
 
 # debug print option 
   # ex) if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is directory : mf"; fi
