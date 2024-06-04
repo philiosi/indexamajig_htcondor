@@ -78,10 +78,10 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 					# input type
 					let "in_type=($in_type|2)"	
 					geom_dir=$g
-					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is directory : mg"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is directory : $geom_dir"; fi
 				elif [ -f "$g" ]; then
 					let "in_type=($in_type|1)"
-					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is regular file : sg"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is regular file : $g"; fi
 					if [[ "$g" == */* ]]; then
 						geom_dir=$(dirname "$g")
 						g=$(basename "$g")
@@ -96,7 +96,7 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 			j)
 				j=$OPTARG
 				if [ "$j" -gt 72 ]; then
-					if [ $DEBUG -eq 1 ]; then echo "[debug] Number of CPU cores specified ($j) is greater than 72"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[error] Number of CPU cores specified ($j) is greater than 72"; fi
 				fi
 				;;
 			f)
@@ -105,10 +105,10 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 					# input type
 					let "in_type=($in_type|8)"
 					lst_dir=$f
-					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is directory : mf"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is directory : $lst_dir"; fi
 				elif [ -f "$f" ]; then
 					let "in_type=($in_type|4)"
-					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is regular file : sf"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is regular file : $f"; fi
 					if [[ "$f" == */* ]]; then
 						lst_dir=$(dirname "$f")
 						f=$(basename "$f")
@@ -123,14 +123,14 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 			o)
 				o=$OPTARG
 				if [ ! -f "$o" ]; then
-					if [ $DEBUG -eq 1 ]; then echo "[debug] File $o does not exist. '-o' option requires stream file name"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[error] File $o does not exist. '-o' option requires stream file name"; fi
 					 exit 1
 				fi
 				;;
 			p)
 				p=$OPTARG
 				if [ ! -f "$p" ]; then
-					if [ $DEBUG -eq 1 ]; then echo "[debug] File $p does not exist. '-p' option requires *.pdb file"; fi
+					if [ $DEBUG -eq 1 ]; then echo "[error] File $p does not exist. '-p' option requires *.pdb file"; fi
 					 exit 1
 				fi
 				;;
@@ -152,11 +152,6 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 					;;
 		esac
 done
-
-if [ $DEBUG -eq 1 ]; then echo "[debug] geom_dir is $geom_dir"; fi
-if [ $DEBUG -eq 1 ]; then echo "[debug] g is $g"; fi
-if [ $DEBUG -eq 1 ]; then echo "[debug] lst_dir is $lst_dir"; fi
-if [ $DEBUG -eq 1 ]; then echo "[debug] f is $f"; fi
 
 # job submit function
 job_submit() { 
