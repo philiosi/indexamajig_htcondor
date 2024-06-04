@@ -12,15 +12,18 @@
 # 2_condor_submit_indexing.sh		Last Modified Data : 2023/09/12 by Sang-Ho Na
 # 2_condor_submit_indexing_v2.sh	Last Modified Data : 2023/09/21 by Sang-Ho Na
 ##################################################################################
+
+# debug print option 
+  # ex) if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is directory : mf"; fi
 DEBUG=1
 
 # Input
 # The directory location is determined based on the input parameter.
-geom_dir="" # Do not assign a value.
-lst_dir="" # Do not assign a value.
+geom_dir="" # Do not assign a value. -g option parameter
+lst_dir="" # Do not assign a value. -f option parameter
 
 # Output
-# 'stream_foler' and 'log' directories are required. Please change directories what you want.
+# 'stream_dir' and 'log' directories are required. Please change directories what you want.
 # Default directory are 'file_stream' and 'log'
 stream_dir="file_stream"
 log="log"
@@ -77,7 +80,7 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				elif [ -f "$g" ]; then
 					let "in_type=($in_type|1)"
 					if [ $DEBUG -eq 1 ]; then echo "[debug] -g option is regular file : sg"; fi
-					if [[ "$g" == */* ]] then
+					if [[ "$g" == */* ]]; then
 						geom_dir=$(dirname "$g")
 						g=$(basename "$g")
 					fi
@@ -104,7 +107,7 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
 				elif [ -f "$f" ]; then
 					let "in_type=($in_type|4)"
 					if [ $DEBUG -eq 1 ]; then echo "[debug] -f option is regular file : sf"; fi
-					if [[ "$f" == */* ]] then
+					if [[ "$f" == */* ]]; then
 						lst_dir=$(dirname "$f")
 						f=$(basename "$f")
 					fi
