@@ -163,6 +163,9 @@ job_submit() {
     oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
     pot=${PROCDIR}/${p}
 
+	echo ${PROCDIR}
+	echo ${lst_dir}
+
     condor_submit <<-EOF
 universe = vanilla
 should_transfer_files = IF_NEEDED
