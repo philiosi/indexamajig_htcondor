@@ -171,6 +171,7 @@ job_submit() {
 		fot=${f}
 	else	
 		fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
+	fi
     oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
     pot=${PROCDIR}/${p}
 
@@ -214,7 +215,7 @@ case $in_type in
                 do
                     g=$(basename "$geom_line")
                     if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                    f=$cxi_file  # Store the cxi file path in variable f
+                    f="../$cxi_file"  # Store the cxi file path in variable f
                     set_output_naming
                     job_submit
                 done
@@ -232,7 +233,7 @@ case $in_type in
             # Read each line in the lst file and process each cxi file
             while IFS= read -r cxi_file; do
                 if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-                f=$cxi_file  # Store the cxi file path in variable f
+                f="../$cxi_file"  # Store the cxi file path in variable f
                 set_output_naming
                 job_submit
             done < "$lst_dir/$f"  # Read from the lst file
@@ -247,7 +248,7 @@ case $in_type in
             do
                 g=$(basename "$geom_line")
                 if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                f=$cxi_file  # Store the cxi file path in variable f
+                f="../$cxi_file"  # Store the cxi file path in variable f
                 set_output_naming
                 job_submit
             done
@@ -260,8 +261,7 @@ case $in_type in
         # Read each line in the lst file and process each cxi file
         while IFS= read -r cxi_file; do
             if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-            f=$cxi_file  # Store the cxi file path in variable f
-			echo $f
+            f="../$cxi_file"  # Store the cxi file path in variable f
             set_output_naming
             job_submit
         done < "$lst_dir/$f"  # Read from the lst file
