@@ -155,23 +155,32 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
     esac
 done
 
+is_absolute_path() {
+    case "$1" in
+        /*) return 0 ;;  # realpath
+        *)  return 1 ;; 
+    esac
+}
+
 # job submit function
 job_submit() { 
     geom=`echo $g | awk -F'.' '{print $1}'`
     got=$(realpath -m "${PROCDIR}/${geom_dir}/${g}")
-    fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
+
+	if is_absolute_path "$f"; then
+		fot=${f}
+	else	
+		fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
     oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
     pot=${PROCDIR}/${p}
 
-	echo ${PROCDIR}
-	echo ${lst_dir}
 
     condor_submit <<-EOF
 universe = vanilla
 should_transfer_files = IF_NEEDED
-output = $log/${geom}_${i}_${runnum}_condor.out
-error = $log/${geom}_${i}_${runnum}_condor.error
-log = $log/${geom}_${i}_${runnum}_condor.log
+output = $log/${geom}_${i}_${runnum}_${streamname}_condor.out
+error = $log/${geom}_${i}_${runnum}_${streamname}_condor.error
+log = $log/${geom}_${i}_${runnum}_${streamname}_condor.log
 request_cpus = ${j}                    
 request_memory = $MEM GB
 executable = 3_exec_indexing.sh
@@ -252,6 +261,7 @@ case $in_type in
         while IFS= read -r cxi_file; do
             if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
             f=$cxi_file  # Store the cxi file path in variable f
+			echo $f
             set_output_naming
             job_submit
         done < "$lst_dir/$f"  # Read from the lst file
