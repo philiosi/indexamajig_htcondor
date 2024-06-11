@@ -181,7 +181,7 @@ EOF
 
 set_output_naming() {
     cxi_basename=`basename "$f" .cxi`
-    runnum=`echo $cxi_basename | awk -F'_' '{print $2}'`
+    runnum=`echo $cxi_basename | awk -F'-' '{print $2$3}'`
     streamname=`echo $o | awk -F'.' '{print $1}'`
 }
 
