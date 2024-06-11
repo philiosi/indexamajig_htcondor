@@ -239,7 +239,7 @@ case $in_type in
                 set_output_naming
                 job_submit
             done
-        done < "$f"  # Read from the lst file
+        done 
         ;;
     # - 0101 : 5  single lst, single geom
     5)
@@ -251,7 +251,7 @@ case $in_type in
             f=$cxi_file  # Store the cxi file path in variable f
             set_output_naming
             job_submit
-        done < "$f"  # Read from the lst file
+        done 
         ;;
 esac
 
