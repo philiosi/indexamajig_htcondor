@@ -162,6 +162,15 @@ is_absolute_path() {
     esac
 }
 
+make_absolute_path() {
+    local input_path="$1"
+    if [ ! -d "$input_path" ] && [ ! -f "$input_path" ]; then
+        echo "Error: Path does not exist" >&2
+        exit 1
+    fi
+    echo "$(realpath "$input_path")"
+}
+
 # job submit function
 job_submit() { 
     geom=`echo $g | awk -F'.' '{print $1}'`
@@ -215,7 +224,7 @@ case $in_type in
                 do
                     g=$(basename "$geom_line")
                     if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                    f="../$cxi_file"  # Store the cxi file path in variable f
+                    f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
                     set_output_naming
                     job_submit
                 done
@@ -233,7 +242,7 @@ case $in_type in
             # Read each line in the lst file and process each cxi file
             while IFS= read -r cxi_file; do
                 if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-                f="../$cxi_file"  # Store the cxi file path in variable f
+                f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
                 set_output_naming
                 job_submit
             done < "$lst_dir/$f"  # Read from the lst file
@@ -248,7 +257,7 @@ case $in_type in
             do
                 g=$(basename "$geom_line")
                 if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                f="../$cxi_file"  # Store the cxi file path in variable f
+                f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
                 set_output_naming
                 job_submit
             done
@@ -261,7 +270,7 @@ case $in_type in
         # Read each line in the lst file and process each cxi file
         while IFS= read -r cxi_file; do
             if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-            f="../$cxi_file"  # Store the cxi file path in variable f
+            f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
             set_output_naming
             job_submit
         done < "$lst_dir/$f"  # Read from the lst file
