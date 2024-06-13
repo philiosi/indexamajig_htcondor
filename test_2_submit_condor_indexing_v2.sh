@@ -175,15 +175,9 @@ make_absolute_path() {
 job_submit() { 
     geom=`echo $g | awk -F'.' '{print $1}'`
     got=$(realpath -m "${PROCDIR}/${geom_dir}/${g}")
-
-	if is_absolute_path "$f"; then
-		fot=${f}
-	else	
-		fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
-	fi
+	fot=${f}
     oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
     pot=${PROCDIR}/${p}
-
 
     condor_submit <<-EOF
 universe = vanilla
