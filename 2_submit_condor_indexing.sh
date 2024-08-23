@@ -199,7 +199,7 @@ case $in_type in
         if [ $DEBUG -eq 1 ]; then echo "[debug] start 'while' for reading file list"; fi 
         ls "$lst_dir"/* | while read lst_file
         do
-            f=$(basenane $lst_file)
+            f=$(basename $lst_file)
             ls "$geom_dir"/* | while read geom_line
             do
 				g=$(basename "$geom_line")
@@ -215,7 +215,7 @@ case $in_type in
         
         ls "$lst_dir"/* | while read lst_file
         do
-            f=$(basenane $lst_file)
+            f=$(basenanme $lst_file)
             # Read each lst file and job submit
             if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
             set_output_naming
