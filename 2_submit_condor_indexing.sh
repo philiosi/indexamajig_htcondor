@@ -215,7 +215,7 @@ case $in_type in
         
         ls "$lst_dir"/* | while read lst_file
         do
-            f=$(basenanme $lst_file)
+            f=$(basename $lst_file)
             # Read each lst file and job submit
             if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
             set_output_naming
