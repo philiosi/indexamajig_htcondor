@@ -13,6 +13,7 @@
 # 2_condor_submit_indexing.sh          		Last Modified Data : 2023/09/12 by Sang-Ho Na
 # 2_condor_submit_indexing_v2.sh       		Last Modified Data : 2023/09/21 by Sang-Ho Na
 # 2_submit_condor_indexing.sh     			Last Modified Data : 2024/06/13 by Sang-Ho Na
+# (current) 2_submit_condor_indexing.sh     Last Modified Data : 2024/08/23 by Sang-Ho Na
 #################################################################################################
 
 # debug print option 
@@ -60,7 +61,7 @@ err_msg_f() { err_msg "-f option requires lst file or directory, and please chec
 err_msg_g() { err_msg "-g option requires geometry file or directory, and please check the file exist and readable"; }
 err_msg_i() { err_msg "-i option requires indexing method ex)mosflm, xds, asdf, dirax, xgandalf"; }
 err_msg_j() { err_msg "-j option requires number of cpu(max 72cores)"; }
-err_msg_o() { err_msg "-o option requires stream file"; }
+err_msg_o() { err_msg "-o option requires stream file name"; }
 err_msg_p() { err_msg "-p option requires *.pdb file"; }
 err_msg_e() { err_msg "-e option another parameter such as -p, --int-radius, --threshold, --min-srn, --min-fradient "; }
 
@@ -123,10 +124,6 @@ while getopts ":g:i:j:f:e:o:p:" opt; do
             ;;
         o)
             o=$OPTARG
-            if [ ! -f "$o" ]; then
-                if [ $DEBUG -eq 1 ]; then echo "[error] File $o does not exist. '-o' option requires stream file name"; fi
-                exit 1
-            fi
             ;;
         p)
             p=$OPTARG
@@ -262,4 +259,3 @@ case $in_type in
         done < "$lst_dir/$f"  # Read from the lst file
         ;;
 esac
-

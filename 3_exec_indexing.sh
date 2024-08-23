@@ -9,14 +9,16 @@
 # Contact: gspark86@postech.ac.kr	shna@kisti.re.kr
 #
 # 3_exec_indexing.sh  	   Modified Data 2021/03/09 by Gisu Park
-# 		              Last Modified Data 2024/06/05 by Sang-Ho Na
+#                          Modified Data 2023/09/12 by Sang-Ho Na
+#                     Last Modified Data 2024/08/23 by Sang-Ho Na
 ###############################################################################
 
 
 
 
-#source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
-source /pal/lib/setup_crystfel-0.10.1_hdf5-1.10.5.sh
+
+source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
+#source /pal/lib/setup_crystfel-0.10.1_hdf5-1.10.5.sh
 #source /pal/data/setup/setup.sh
 
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/pal/data/setup/lib:/pal/lib/pal-soft/ccp4-7.0/lib
