@@ -164,7 +164,7 @@ make_absolute_path() {
 job_submit() { 
     geom=`echo $g | awk -F'.' '{print $1}'`
     got=$(realpath -m "${PROCDIR}/${geom_dir}/${g}")
-	fot=${f}
+	fot=$(realpath -m "${PROCDIR}/${lst_dir}/${f}")
     oot=${PROCDIR}/${stream_dir}/${geom}_${i}_${runnum}_${o}
     pot=${PROCDIR}/${p}
 
@@ -185,8 +185,7 @@ EOF
 }
 
 set_output_naming() {
-    cxi_basename=`basename "$f" .cxi`
-    runnum=`echo $cxi_basename | awk -F'-' '{print $2$3}'`
+    runnum=`echo $f | awk -F'-' '{print $2$3}'`
     streamname=`echo $o | awk -F'.' '{print $1}'`
 }
 
@@ -227,27 +226,19 @@ case $in_type in
     6)
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and multiple geom files"; fi
         
-        while IFS= read -r cxi_file; do
-            ls "$geom_dir"/* | while read geom_line
-            do
-                g=$(basename "$geom_line")
-                if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
-                set_output_naming
-                job_submit
-            done
-        done 
+		ls "$geom_dir"/* | while read geom_line
+		do
+			g=$(basename "$geom_line")
+			if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
+			set_output_naming
+			job_submit
+		done
         ;;
     # - 0101 : 5  single lst, single geom
     5)
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and single geom file"; fi
-        
-        # Read each line in the lst file and process each cxi file
-        while IFS= read -r cxi_file; do
-            if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-            f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
-            set_output_naming
-            job_submit
-        done 
+		if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
+		set_output_naming
+		job_submit
         ;;
 esac
