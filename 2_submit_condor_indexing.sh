@@ -198,37 +198,29 @@ case $in_type in
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: multiple lst files and multiple geom files"; fi
         
         if [ $DEBUG -eq 1 ]; then echo "[debug] start 'while' for reading file list"; fi 
-        ls "$lst_dir"/* | while read file_line
+        ls "$lst_dir"/* | while read lst_file
         do
-            f=$(basename "$file_line")
-            
-            while IFS= read -r cxi_file; do
-                ls "$geom_dir"/* | while read geom_line
-                do
-                    g=$(basename "$geom_line")
-                    if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $geom_dir/$g"; fi 
-                    f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
-                    set_output_naming
-                    job_submit
-                done
-            done < "$lst_dir/$f"  # Read from the lst file
+            f=$(basenane $lst_file)
+            ls "$geom_dir"/* | while read geom_line
+            do
+				g=$(basename "$geom_line")
+				if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
+				set_output_naming
+				job_submit
+            done
         done
         ;;
     # - 1001 : 9  multi lst, single geom
     9)
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: multiple lst files and single geom file"; fi
         
-        ls "$lst_dir"/* | while read file_line
+        ls "$lst_dir"/* | while read lst_file
         do
-            f=$(basename "$file_line")
-            
-            # Read each line in the lst file and process each cxi file
-            while IFS= read -r cxi_file; do
-                if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $cxi_file and $g"; fi 
-                f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
-                set_output_naming
-                job_submit
-            done < "$lst_dir/$f"  # Read from the lst file
+            f=$(basenane $lst_file)
+            # Read each lst file and job submit
+            if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
+            set_output_naming
+            job_submit
         done
         ;;
     # - 0110 : 6  single lst, multi geom
@@ -244,7 +236,7 @@ case $in_type in
                 set_output_naming
                 job_submit
             done
-        done < "$lst_dir/$f"  # Read from the lst file
+        done 
         ;;
     # - 0101 : 5  single lst, single geom
     5)
@@ -256,6 +248,6 @@ case $in_type in
             f=$(make_absolute_path "$cxi_file")     # Store the cxi file realpath in variable f
             set_output_naming
             job_submit
-        done < "$lst_dir/$f"  # Read from the lst file
+        done 
         ;;
 esac
