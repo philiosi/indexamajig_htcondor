@@ -12,7 +12,7 @@
 # 2_condor_indexing.sh                 		Last Modified Data : 2021/03/09 by Gisu Pakr
 # 2_condor_submit_indexing.sh          		Last Modified Data : 2023/09/12 by Sang-Ho Na
 # 2_condor_submit_indexing_v2.sh       		Last Modified Data : 2023/09/21 by Sang-Ho Na
-# 2_submit_condor_indexing.sh     			Last Modified Data : 2024/06/13 by Sang-Ho Na
+# 2_submit_condor_indexing.sh     		Last Modified Data : 2024/06/13 by Sang-Ho Na
 # (current) 2_submit_condor_indexing.sh     Last Modified Data : 2024/08/23 by Sang-Ho Na
 #################################################################################################
 
@@ -202,10 +202,10 @@ case $in_type in
             f=$(basename $lst_file)
             ls "$geom_dir"/* | while read geom_line
             do
-				g=$(basename "$geom_line")
-				if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
-				set_output_naming
-				job_submit
+		g=$(basename "$geom_line")
+		if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
+		set_output_naming
+		job_submit
             done
         done
         ;;
@@ -226,19 +226,19 @@ case $in_type in
     6)
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and multiple geom files"; fi
         
-	    ls "$geom_dir"/* | while read geom_line
-	    do
-	        g=$(basename "$geom_line")
-	        if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
-	        set_output_naming
-	        job_submit
-		done
+	ls "$geom_dir"/* | while read geom_line
+	do
+            g=$(basename "$geom_line")
+            if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $geom_dir/$g"; fi 
+            set_output_naming
+            job_submit
+	done
         ;;
     # - 0101 : 5  single lst, single geom
     5)
         if [ $DEBUG -eq 1 ]; then echo "[debug] Input Type $in_type: single lst file and single geom file"; fi
-		if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
-		set_output_naming
-		job_submit
+        if [ $DEBUG -eq 1 ]; then echo "[debug] submit condor job : $f and $g"; fi 
+	set_output_naming
+	job_submit
         ;;
 esac
