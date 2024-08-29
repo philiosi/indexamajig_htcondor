@@ -185,7 +185,7 @@ EOF
 }
 
 set_output_naming() {
-    runnum=`echo $f | awk -F'-' '{print $2$3}'`
+    runnum=`echo $f | awk -F'.' '{print $1}'`
     streamname=`echo $o | awk -F'.' '{print $1}'`
 }
 
