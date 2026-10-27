@@ -1,5 +1,7 @@
 # indexamajig_htcondor
 
+See [CHANGELOG.md](CHANGELOG.md) for recent changes.
+
 ### Input file : lst file(s) and geom file(s)
  - sample lst files are in the 'file_list' and in the root path
  - sample geom files are in the 'geom_files' and in the root path
