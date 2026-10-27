@@ -44,11 +44,11 @@
    "2_submit_condor_indexing.sh" submits with "getenv = True", so the job runs
    with the environment of the shell you submitted from.
 
-   source /pal/lib/setup_crystfel-0.12.1_hdf5-1.10.5.sh   # CrystFEL 0.12.0
+   source /pal/lib/setup_crystfel-0.12.0_hdf5-1.10.5.sh   # CrystFEL 0.12.0
    ./2_submit_condor_indexing.sh ...
 
  - If no CrystFEL environment is set up, "3_exec_indexing.sh" falls back to
-   $CRYSTFEL_SETUP (default: /pal/lib/setup_crystfel-0.12.1_hdf5-1.10.5.sh).
+   $CRYSTFEL_SETUP (default: /pal/lib/setup_crystfel-0.12.0_hdf5-1.10.5.sh).
  - Each job log starts with the indexamajig path and version it actually used.
    Check that first if an indexing method is not recognised, e.g. 'smallcell'
    was added in CrystFEL 0.12.0.
