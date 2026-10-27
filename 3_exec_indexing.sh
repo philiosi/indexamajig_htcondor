@@ -20,9 +20,10 @@
 # with the environment of the shell you submitted from: whatever you sourced
 # before submitting (e.g. source /pal/lib/setup_crystfel-0.12.0_hdf5-1.10.5.sh)
 # is what indexamajig will be.  CRYSTFEL_SETUP below is only a fallback for the
-# case where no CrystFEL environment was set up at all.
+# case where no CrystFEL environment was set up at all; it stays at 0.9.1, the
+# version these jobs have always used, so existing workflows are unchanged.
 
-CRYSTFEL_SETUP="${CRYSTFEL_SETUP:-/pal/lib/setup_crystfel-0.12.0_hdf5-1.10.5.sh}"
+CRYSTFEL_SETUP="${CRYSTFEL_SETUP:-/pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh}"
 
 if ! command -v indexamajig > /dev/null 2>&1; then
     echo "[INFO] no CrystFEL in the job environment, sourcing ${CRYSTFEL_SETUP}"
