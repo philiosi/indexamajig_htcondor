@@ -51,4 +51,4 @@
    $CRYSTFEL_SETUP (default: /pal/lib/setup_crystfel-0.12.1_hdf5-1.10.5.sh).
  - Each job log starts with the indexamajig path and version it actually used.
    Check that first if an indexing method is not recognised, e.g. 'smallcell'
-   needs CrystFEL 0.11 or newer.
+   was added in CrystFEL 0.12.0.
