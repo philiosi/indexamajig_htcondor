@@ -54,16 +54,16 @@ fi
 
 # define usage
 usage() {
-    err_msg "Usage: $0 -g abc.geom or geom_dir_name -i mosflm -j 36 -f r0081c00.lst or all -o SASE.stream -p mycell.pdb -e \"--int-radius=3,4,5 --threshold=600 --min-srn=4 --min-gradient=100000\""
+    err_msg "Usage: $0 -g abc.geom or geom_dir_name -i mosflm -j 36 -f r0081c00.lst or all -o SASE.stream -p mycell.pdb -e \"--int-radius=3,4,5 --threshold=600 --min-snr=4 --min-gradient=100000\""
 }
 err_msg() { echo "$@" ; } >&2
 err_msg_f() { err_msg "-f option requires lst file or directory, and please check the file exist and readable"; }
 err_msg_g() { err_msg "-g option requires geometry file or directory, and please check the file exist and readable"; }
-err_msg_i() { err_msg "-i option requires indexing method ex)mosflm, xds, asdf, dirax, xgandalf"; }
+err_msg_i() { err_msg "-i option requires indexing method ex)mosflm, xds, asdf, dirax, xgandalf, smallcell"; }
 err_msg_j() { err_msg "-j option requires number of cpu(max 72cores)"; }
 err_msg_o() { err_msg "-o option requires stream file name"; }
 err_msg_p() { err_msg "-p option requires *.pdb file"; }
-err_msg_e() { err_msg "-e option another parameter such as -p, --int-radius, --threshold, --min-srn, --min-fradient "; }
+err_msg_e() { err_msg "-e option another parameter such as -p, --int-radius, --threshold, --min-snr, --min-gradient "; }
 
 if [ "$#" -lt 10 ]; then
     usage
@@ -170,6 +170,7 @@ job_submit() {
 
     condor_submit <<-EOF
 universe = vanilla
+getenv = True
 should_transfer_files = IF_NEEDED
 output = $log/${geom}_${i}_${runnum}_${streamname}_condor.out
 error = $log/${geom}_${i}_${runnum}_${streamname}_condor.error

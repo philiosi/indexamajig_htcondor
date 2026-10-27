@@ -10,20 +10,33 @@
 #
 # 3_exec_indexing.sh  	   Modified Data 2021/03/09 by Gisu Park
 #                          Modified Data 2023/09/12 by Sang-Ho Na
-#                     Last Modified Data 2024/08/23 by Sang-Ho Na
+#                          Modified Data 2024/08/23 by Sang-Ho Na
+#                     Last Modified Data 2026/10/27 by Sang-Ho Na
 ###############################################################################
 
+# The CrystFEL version is NOT hard-coded here any more.
+#
+# 2_submit_condor_indexing.sh submits with "getenv = True", so this job runs
+# with the environment of the shell you submitted from: whatever you sourced
+# before submitting (e.g. source /pal/lib/setup_crystfel-0.12.1_hdf5-1.10.5.sh)
+# is what indexamajig will be.  CRYSTFEL_SETUP below is only a fallback for the
+# case where no CrystFEL environment was set up at all.
 
+CRYSTFEL_SETUP="${CRYSTFEL_SETUP:-/pal/lib/setup_crystfel-0.12.1_hdf5-1.10.5.sh}"
 
-
-
-source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
-#source /pal/lib/setup_crystfel-0.10.1_hdf5-1.10.5.sh
-#source /pal/data/setup/setup.sh
-
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/pal/data/setup/lib:/pal/lib/pal-soft/ccp4-7.0/lib
-#export PATH=$PATH:/pal/lib/pal-soft/ccp4-7.0/bin/:/pal/data/setup/lib:/pal/data/setup/XDS-INTEL64_Linux_x86_64
+if ! command -v indexamajig > /dev/null 2>&1; then
+    echo "[INFO] no CrystFEL in the job environment, sourcing ${CRYSTFEL_SETUP}"
+    source "${CRYSTFEL_SETUP}"
+fi
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/pal/htcondor/lib
 
-time indexamajig -g ${1} --peaks=cxi --indexing=${2} -j ${3}  -i ${4} -o ${5} -p ${6} ${7}
+# Always record which build actually ran.  Without this you cannot tell from
+# the job logs whether the job used the version you think it did.
+echo "[INFO] host        : $(hostname)"
+echo "[INFO] indexamajig : $(command -v indexamajig)"
+echo "[INFO] version     : $(indexamajig --version 2>&1 | head -1)"
+
+# "${@:7}" instead of ${7}: condor splits the -e string into separate
+# arguments, so passing only ${7} silently dropped every option after the first.
+time indexamajig -g "${1}" --peaks=cxi --indexing="${2}" -j "${3}" -i "${4}" -o "${5}" -p "${6}" "${@:7}"
