@@ -3,7 +3,15 @@
 ## 2026-10-27
 
 Please download the scripts again. Older copies, including the one in
-`/pal/htcondor/htcondor_sample_ori.tar`, always run CrystFEL 0.9.1.
+`/pal/htcondor/htcondor_sample_ori.tar`, have this line in `3_exec_indexing.sh`:
+
+```bash
+source /pal/lib/setup_crystfel-0.9.1_hdf5-1.10.5.sh
+```
+
+It overrides the CrystFEL version you set up before submitting, so those copies
+run 0.9.1 even if you loaded 0.12.0 or 0.13.0. If you keep an old copy, edit or
+remove that line to choose the version.
 
 ### Changed
 - **Jobs use the CrystFEL version set up in the shell you submit from.**
